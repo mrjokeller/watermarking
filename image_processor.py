@@ -14,6 +14,9 @@ class ImageProcessor:
     def set_image(self, image_path: str):
         self.image_path = image_path
         
+    def set_watermark_text(self, text: str):
+        self.watermark = text
+        
     def set_watermark(self):
         with Image.open(self.image_path) as img:
             size = img.height * img.width
@@ -21,7 +24,7 @@ class ImageProcessor:
             # font = ImageFont.truetype(<font-file>, <font-size>)
             font = ImageFont.truetype("arial.ttf", 64)
             # draw.text((x, y),"Sample Text",(r,g,b))
-            draw.text((50, 50), "Watermark", (255, 255, 255), font=font)
+            draw.text((50, 50), self.watermark, (255, 255, 255), font=font)
             new_path = self.image_path.split(".")[0] + "_wm.jpg"
             
             img.save(fp=f"{new_path}", format='JPEG')
